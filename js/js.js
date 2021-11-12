@@ -1,12 +1,11 @@
 let player = 0;
-var arrayCounter = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
-const arrayLines= [[4,9,2],[3,5,7],[8,1,6],[4,3,8],[9,5,1],[2,7,6],[4,5,6],[2,5,8]];
-const arrayLinesIdByid =[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-var counter = 0;
+var arrayCounter = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];//array para guardar las casillas por linea de los jugadores
+const arrayLinesIdByid =[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];//array con las líneas ganadoras por id
+var counter = 0; //contador de jugadas
 var arrayPlayer = [];
 var arrayComputer = [];
-const map = [4,9,2,3,5,7,8,1,6]; 
-let mapClicked = [true,true,true,true,true,true,true,true,true]; 
+const map = [4,9,2,3,5,7,8,1,6]; //cuadrado mágico, todas las líneas suman 15
+let mapClicked = [true,true,true,true,true,true,true,true,true]; //array para ver las casillas libres.
 let endMessage = "";
 
 //---------------------------------------------------------------------------------
@@ -56,13 +55,13 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
         if ((arrayCounter[a][player] == 3) || (arrayCounter[b][player] == 3) || (arrayCounter[6][player] == 3) || (arrayCounter[7][player] == 3)) {
             printSimbol(player,id);
             endMessage = `Player win`;
-            setTimeout(function() {finishGame(endMessage)}, 1000);
+            setTimeout(function() {finishGame(endMessage)}, 500);
             return
         }
         else if (counter == 9) {
             printSimbol(player,id);
             endMessage = `You draw, click on INICIO to play again`;
-            setTimeout(function() {finishGame(endMessage)}, 1000);
+            setTimeout(function() {finishGame(endMessage)}, 500);
             return
         }
         if (counter > 0) {
@@ -71,7 +70,7 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
         }
         player = 1;
         document.querySelector('#message').innerHTML = `Computer`;
-        setTimeout(function() {playComputer()}, 1000);
+        setTimeout(function() {playComputer()}, 500);
     }
 }
 
@@ -94,19 +93,13 @@ function printSimbol(player, id) {
 function playComputer() {
     if (arrayPlayer.length == 1) {
         if (mapClicked[4]) {
-            arrayComputer.push(map[4]);
             let n = 4;
-            countPlays(n);
-            mapClicked[4] = false;
-            document.getElementById('4').disabled = true;
+            addComputerPlay(n);
         }
         else {
             for (let i=0; i < map.length; i++) {
                 if (map[i]) {
-                    arrayComputer.push(map[i]);
-                    mapClicked[i] = false;
-                    countPlays(i);
-                    document.getElementById(i).disabled = true;
+                    addComputerPlay(i);
                     break;
                 }
             }
@@ -125,7 +118,7 @@ function playComputer() {
                             document.getElementById(n).disabled = true;
                             printSimbol(player,n);
                             endMessage = `Computer Win, YOU LOST LITTLE BASTARD :)`;
-                            setTimeout(function() {finishGame(endMessage)}, 1000);
+                            setTimeout(function() {finishGame(endMessage)}, 500);
                             return
                         }                    
                     }
@@ -135,15 +128,12 @@ function playComputer() {
         if (!wrote) {
             
             for (let i =0; i < arrayPlayer.length-1; i++) {//en este for buscamos evitar la linea del jugador
-                for (let j=0; j < arrayPlayer.length; j++) {//ESTE CREO QUE FUNCIONA BIEN
+                for (let j=0; j < arrayPlayer.length; j++) {
                     if (i != j) {
                         let n = map.indexOf(15-(arrayPlayer[i]+arrayPlayer[j]));
                         if (mapClicked[n] && !wrote) {
-                            arrayComputer.push(map[n]);
-                            countPlays(n);
-                            mapClicked[n] = false;
+                            addComputerPlay(n);
                             wrote = true;
-                            document.getElementById(n).disabled = true;
                             break;
                         }                    
                     }
@@ -160,11 +150,8 @@ function playComputer() {
                         }
                     } 
                     if (mapClicked[auxArray[0]] && mapClicked[auxArray[1]] && !wrote) {
-                        arrayComputer.push(map[auxArray[0]]);
-                        mapClicked[auxArray[0]] = false;
-                        countPlays(auxArray[0]);
+                        addComputerPlay(auxArray[0]);
                         wrote = true;
-                        document.getElementById(auxArray[0]).disabled = true;
                         break;
                     }
                 }
@@ -173,11 +160,8 @@ function playComputer() {
         if (!wrote) {
             for (let i = 0; i < mapClicked.length; i++) {
                 if (mapClicked[i] && !wrote) {
-                    arrayComputer.push(map[i]);
-                    mapClicked[i] = false;
+                    addComputerPlay(i); 
                     wrote = true;
-                    countPlays(i);
-                    document.getElementById(i).disabled = true;
                     break;
                 }
             }
@@ -215,10 +199,9 @@ function finishGame(message) { //vuelvo a desactivar todos los inputs y reinizal
 
 //------------------------------------------
 
-function addComputerPlay(playId) {
+function addComputerPlay(playId) {//funciónp para hacer todo lo necesario cuando la máquina elige casilla.
     arrayComputer.push(map[playId]);
     mapClicked[playId] = false;
-    wrote = true;
     countPlays(playId);
     document.getElementById(playId).disabled = true;
 }
