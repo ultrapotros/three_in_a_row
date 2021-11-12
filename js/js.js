@@ -21,7 +21,7 @@ function start() {
     arrayPlayer = [];
     arrayComputer = [];
     mapClicked = [true,true,true,true,true,true,true,true,true]; 
-}   // ahora tengo las lines ganadoras, con buscar luego el index en el array map se que casilla picar
+}  
 
 
 //---------------------------------------------------------------------------------------
@@ -73,9 +73,6 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
         document.querySelector('#message').innerHTML = `Computer`;
         setTimeout(function() {playComputer()}, 1000);
     }
-/*     else {
-        playComputer();
-    } */
 }
 
 //---------------------------------------------------------------------------------------------
@@ -85,15 +82,9 @@ function printSimbol(player, id) {
     
     if (player == 0) {
         document.getElementById(id).value = 'X';
-        console.log(mapClicked);
-        console.log(arrayCounter);
-        console.log('imprimiendo jugada jugador');
     }
     else {
         document.getElementById(id).value = "O";
-        console.log(mapClicked);
-        console.log(arrayCounter);
-        console.log('imprimiendo jugada ordenador');
     }
     return;
 }
@@ -101,7 +92,6 @@ function printSimbol(player, id) {
 //---------------------------------------------------------------------------------------
 
 function playComputer() {
-    console.log('dentro playComputer');
     if (arrayPlayer.length == 1) {
         if (mapClicked[4]) {
             arrayComputer.push(map[4]);
@@ -117,6 +107,7 @@ function playComputer() {
                     mapClicked[i] = false;
                     countPlays(i);
                     document.getElementById(i).disabled = true;
+                    break;
                 }
             }
         }
@@ -131,10 +122,6 @@ function playComputer() {
                         let n = 15-(arrayComputer[i]+arrayComputer[j]);
                         n = map.indexOf(n);
                         if (mapClicked[n]) {
-                            console.log('primera opción del else, buscar hacer linea')
-                            arrayComputer.push(n);//ESTE CREO QUE FUNCIONA BIEN
-                            countPlays(n);
-                            mapClicked[n] = false;
                             document.getElementById(n).disabled = true;
                             printSimbol(player,n);
                             endMessage = `Computer Win, YOU LOST LITTLE BASTARD :)`;
@@ -152,41 +139,33 @@ function playComputer() {
                     if (i != j) {
                         let n = map.indexOf(15-(arrayPlayer[i]+arrayPlayer[j]));
                         if (mapClicked[n] && !wrote) {
-                            console.log('dentro del segundo if del else, buscamos evitar la linea del jugador');
                             arrayComputer.push(map[n]);
                             countPlays(n);
                             mapClicked[n] = false;
                             wrote = true;
                             document.getElementById(n).disabled = true;
-                            continue;
+                            break;
                         }                    
                     }
                 }   
             }            
         }
         if (!wrote) {
-            console.log('dentro del tercer if del else, buscamos juntar dos en una linea, pero antes del for');
             for (let i = 0; i < 8; i++) {//intentar que repase el arrayCounter y si en alguna linea ya hemos sumado y quedan
                 if (arrayCounter[i][1] == 1) {//las otras dos opciones libres cojer una
-                    console.log('dentro del tercer if del else, buscamos juntar dos en una linea, entre los dos for');
                     let auxArray = [];
                     for (let j =0; j < 3;j++) {
-                        console.log(arrayComputer);
-                        console.log(arrayLinesIdByid);
-                        console.log(arrayLinesIdByid[i][j]);
-                        console.log(auxArray);
                         if (!arrayComputer.includes(map[arrayLinesIdByid[i][j]])) {
                             auxArray.push(arrayLinesIdByid[i][j]);
                         }
                     } 
                     if (mapClicked[auxArray[0]] && mapClicked[auxArray[1]] && !wrote) {
-                        console.log('dentro del tercer if del else, buscamos juntar dos en una linea');
                         arrayComputer.push(map[auxArray[0]]);
                         mapClicked[auxArray[0]] = false;
                         countPlays(auxArray[0]);
                         wrote = true;
                         document.getElementById(auxArray[0]).disabled = true;
-                        continue
+                        break;
                     }
                 }
             }
@@ -199,12 +178,11 @@ function playComputer() {
                     wrote = true;
                     countPlays(i);
                     document.getElementById(i).disabled = true;
-                    continue
+                    break;
                 }
             }
         }
     }
-    console.log('antes del print del computer');
     counter++;
     printSimbol(player,map.indexOf(arrayComputer[arrayComputer.length-1]));
     player = 0;
@@ -237,4 +215,10 @@ function finishGame(message) { //vuelvo a desactivar todos los inputs y reinizal
 
 //------------------------------------------
 
-
+function addComputerPlay(playId) {
+    arrayComputer.push(map[playId]);
+    mapClicked[playId] = false;
+    wrote = true;
+    countPlays(playId);
+    document.getElementById(playId).disabled = true;
+}
