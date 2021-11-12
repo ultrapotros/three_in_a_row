@@ -151,7 +151,7 @@ function playComputer() {
                 for (let j=0; j < arrayPlayer.length; j++) {//ESTE CREO QUE FUNCIONA BIEN
                     if (i != j) {
                         let n = map.indexOf(15-(arrayPlayer[i]+arrayPlayer[j]));
-                        if (mapClicked[n]) {
+                        if (mapClicked[n] && !wrote) {
                             console.log('dentro del segundo if del else, buscamos evitar la linea del jugador');
                             arrayComputer.push(map[n]);
                             countPlays(n);
@@ -179,7 +179,7 @@ function playComputer() {
                             auxArray.push(arrayLinesIdByid[i][j]);
                         }
                     } 
-                    if (mapClicked[auxArray[0]] && mapClicked[auxArray[1]] ) {
+                    if (mapClicked[auxArray[0]] && mapClicked[auxArray[1]] && !wrote) {
                         console.log('dentro del tercer if del else, buscamos juntar dos en una linea');
                         arrayComputer.push(map[auxArray[0]]);
                         mapClicked[auxArray[0]] = false;
