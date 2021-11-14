@@ -7,7 +7,16 @@ var arrayComputer = [];
 const map = [4,9,2,3,5,7,8,1,6]; //cuadrado mágico, todas las líneas suman 15
 let mapClicked = [true,true,true,true,true,true,true,true,true]; //array para ver las casillas libres.
 let endMessage = "";
-
+var levelImposible = true;
+//--------------------------------------------------------------------------------
+function level(a,id) {
+    levelImposible = a;
+    let active = 'hard';
+    let inactive = 'imposible';
+    id=='imposible' ? (document.getElementById(id).classList.add('active') , document.getElementById('hard').classList.remove('active')) : (document.getElementById(id).classList.add('active') , document.getElementById('imposible').classList.remove('active'));
+    //document.getElementById(active).style.background= '#2FFF72';
+    //document.getElementById(inactive).style.background= '#fcf299';
+}
 //---------------------------------------------------------------------------------
 function start() {
     var messageBox = document.querySelector('#message');
@@ -20,6 +29,7 @@ function start() {
     arrayPlayer = [];
     arrayComputer = [];
     mapClicked = [true,true,true,true,true,true,true,true,true]; 
+    console.log(levelImposible);
 }  
 
 
@@ -140,6 +150,31 @@ function playComputer() {
                 }   
             }            
         }
+        if (!wrote && levelImposible == true) {
+            let firstLine = 9;
+            let secondLine = 9;
+            for (let i = 0; i < 8; i++) {//intentar que repase el arrayCounter y si en alguna linea ya hemos sumado y quedan
+                if ((arrayCounter[i][1] == 1) && (arrayCounter[i][0] == 0)) {//las otras dos opciones libres cojer una
+                    firstLine = i;
+                    for (let j =(i + 1); j < 8;j++) {
+                        if ((arrayCounter[j][1] == 1) && (arrayCounter[j][0] == 0)) {
+                            secondLine = j;
+                        }
+                    }
+                }
+            }
+            if (firstLine != 9 && secondLine!= 9) {
+                for (let j =0; j < 3;j++) {
+                    if ((arrayLinesIdByid[firstLine].includes(arrayLinesIdByid[j])) && mapClicked[j]) {
+                        addComputerPlay(j);
+                        wrote = true;
+                        break;
+                    }
+                } 
+                //solo puede coincidir un id, si esta libre cogerlo.
+                //aquí ya tengo que buscar cual coincide y no está elegida y cogerla
+            }
+        }
         if (!wrote) {
             for (let i = 0; i < 8; i++) {//intentar que repase el arrayCounter y si en alguna linea ya hemos sumado y quedan
                 if (arrayCounter[i][1] == 1) {//las otras dos opciones libres cojer una
@@ -157,6 +192,7 @@ function playComputer() {
                 }
             }
         }
+        //intentar buscar dos lineas con una, y en el caso de que compartan un hueco vacio tachar ese hueco.
         if (!wrote) {
             for (let i = 0; i < mapClicked.length; i++) {
                 if (mapClicked[i] && !wrote) {
@@ -205,3 +241,5 @@ function addComputerPlay(playId) {//funciónp para hacer todo lo necesario cuand
     countPlays(playId);
     document.getElementById(playId).disabled = true;
 }
+
+//funcion para buscar una fila en la que yo tenga 1 linea y el contrario nada
