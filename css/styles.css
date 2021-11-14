@@ -12,6 +12,14 @@ background: -moz-linear-gradient(left,  #87e0fd 0%, #05abe0 100%); /* FF3.6-15 *
 background: -webkit-linear-gradient(left,  #87e0fd 0%,#05abe0 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to right,  #87e0fd 0%,#05abe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=1 ); /* IE6-9 */
+}
+.infernalBody {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#b71e03+0,f92504+30,f4f400+100 */
+background: #b71e03; /* Old browsers */
+background: -moz-linear-gradient(left,  #b71e03 0%, #f92504 30%, #f4f400 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #b71e03 0%,#f92504 30%,#f4f400 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #b71e03 0%,#f92504 30%,#f4f400 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b71e03', endColorstr='#f4f400',GradientType=1 ); /* IE6-9 */
 
 }
 /*header-------------------------------------------------------*/
@@ -88,13 +96,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', end
 .inputCells:disabled {
     cursor: default;
 }
-.level {
+#level {
     width: 50%;
     margin: auto;
     display: flex;
     justify-content: space-evenly;
 }
-.level p {
+#level p {
     font-size: 2rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
@@ -102,10 +110,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', end
 .active {
     background: #2FFF72;
 }
-#imposible:hover {
+/* #imposible:hover {
     transform: rotate(180deg);
+} */
+#level button:hover {
+    transform: scale(1.25);
 }
-
+#gif {
+  /*   visibility: hidden; */
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.non_visible {
+    visibility: hidden;
+}
 /*pop-up de instrucciones-------------------------------*/
 
 .overlay {

@@ -13,6 +13,10 @@
   <body>
     <header class="header">
         <h1>tres en raya</h1>
+        <div class="players">
+            <button type="button" id="false" class="active" onclick="players(false)">1 jugador</button>
+            <button type="button" id="true" onclick="players(true)">2 jugadores</button>
+        </div>
         <p class="info">Para comenzar el juego pulsa el botón INICIO</p>
         <button class="start" type="button" onclick="start()">INICIO</button>
         <div id="message"></div>
@@ -46,6 +50,7 @@
                 <input disabled class="inputCells" id="8" onclick="clickControl(2,5,6,8)">
             </div>
         </main>
+
         <div class="instructions">
             <p><a href="#popup">Instrucciones</a></p>
             <div id="popup" class="overlay">
@@ -53,15 +58,24 @@
                     <h2>Instrucciones</h2>
                     <a id="cerrar" href="#">x</a>
                     <div class="popupContent">
-                        <p>Este es el contenido</p>
+                        <p>Gracias por visitar nuestra página.</p>
+                        <p>Este es el conocido tres en raya, lo único que tienes que hacer es intentar formar una linea de tres.</p>
+                        <p>Puedes elegir el nivel, en caso de no elegirlo jugarás al nivel difícil. 
+                            Si te atreves puedes elegir el modo demencial.
+                        </p>
+                        <p>Para comenzar a jugar haz click en INICIO.</p>
+                        <p>¡Suerte!!</p>
                     </div>
                 </div>
             </div>          
         </div>
-        <div class="level">
-            <button id="hard" class ="active" onclick="level(false,'hard')">difícil</button>
+        <div id="level">
+            <button id="hard" class ="active" onclick="level(false)">&nbspdifícil&nbsp</button>
             <p>elige un nivel</p>
-            <button id="imposible" onclick="level(true,'imposible')">demencial</button>
+            <button id="imposible" onmouseover="showGif()" onmouseout="hideGif()" onclick="level(true)">demencial</button>
+        </div>
+        <div id="gif" class="non_visible">
+            <img src="media/risas.gif" alt="gif risas">
         </div>
     <footer class="footer">
     </footer>

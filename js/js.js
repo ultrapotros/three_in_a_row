@@ -7,15 +7,41 @@ var arrayComputer = [];
 const map = [4,9,2,3,5,7,8,1,6]; //cuadrado mágico, todas las líneas suman 15
 let mapClicked = [true,true,true,true,true,true,true,true,true]; //array para ver las casillas libres.
 let endMessage = "";
-var levelImposible = true;
+var levelImposible = false;
+var twoPlayers = false;
 //--------------------------------------------------------------------------------
-function level(a,id) {
+function level(a) {
     levelImposible = a;
-    let active = 'hard';
-    let inactive = 'imposible';
-    id=='imposible' ? (document.getElementById(id).classList.add('active') , document.getElementById('hard').classList.remove('active')) : (document.getElementById(id).classList.add('active') , document.getElementById('imposible').classList.remove('active'));
-    //document.getElementById(active).style.background= '#2FFF72';
-    //document.getElementById(inactive).style.background= '#fcf299';
+    levelImposible ? (document.getElementById('imposible').classList.add('active') , document.getElementById('hard').classList.remove('active') , document.body.classList.add('infernalBody')) 
+    : (document.getElementById('hard').classList.add('active') , document.getElementById('imposible').classList.remove('active'), document.body.classList.remove('infernalBody'));
+}
+//--------------------------------------------------------
+function players(id) {
+    twoPlayers = id;
+    if (twoPlayers) {
+        document.getElementById('level').classList.add('non_visible');
+        document.body.classList.remove('infernalBody');
+        document.getElementById('true').classList.add('active');
+        document.getElementById('false').classList.remove('active');
+    }
+    else {
+        document.getElementById('level').classList.remove('non_visible');
+        document.getElementById('false').classList.add('active');
+        document.getElementById('true').classList.remove('active');
+        levelImposible ? document.body.classList.add('infernalBody') : document.body.classList.remove('infernalBody');
+    }
+}
+
+/*     twoPlayers ? (document.getElementById('level').classList.add('non_visible'), document.body.classList.remove('infernalBody')) 
+    : (document.getElementById('level').classList.remove('non_visible'));  */
+
+//----------------------------------------------------------------------
+
+function showGif() {
+    document.getElementById('gif').classList.remove('non_visible');
+}
+function hideGif() {
+    document.getElementById('gif').classList.add('non_visible');
 }
 //---------------------------------------------------------------------------------
 function start() {
@@ -36,8 +62,7 @@ function start() {
 //---------------------------------------------------------------------------------------
 
 
-function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c un 8 si solo hay dos lineas posibles y 
-    if (player == 0) {                // un  9 si es la central que tiene 4 lineas posibles.
+function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c un 8 si solo hay dos lineas posibles y                                                              // un  9 si es la central que tiene 4 lineas posibles.
         counter++;                      // el id para identificar el input clickado. 
         mapClicked[id] = false;  //marcamos que esa casilla está elegida            
         document.getElementById(id).disabled = true;
@@ -81,7 +106,6 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
         player = 1;
         document.querySelector('#message').innerHTML = `Computer`;
         setTimeout(function() {playComputer()}, 500);
-    }
 }
 
 //---------------------------------------------------------------------------------------------
