@@ -89,7 +89,7 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
         }
         if ((arrayCounter[a][player] == 3) || (arrayCounter[b][player] == 3) || (arrayCounter[6][player] == 3) || (arrayCounter[7][player] == 3)) {
             printSimbol(player,id);
-            endMessage = `Player win`;
+            twoPlayers ? endMessage = `Player ${player+1} win`: endMessage = `Player win`;
             setTimeout(function() {finishGame(endMessage)}, 500);
             return
         }
@@ -99,13 +99,11 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
             setTimeout(function() {finishGame(endMessage)}, 500);
             return
         }
-        if (counter > 0) {
-            player = player == 0 ? 1 : 0;
-            document.querySelector('#message').innerHTML = `Player ${player == 0 ? '1' : '2'}`;
-        }
-        player = 1;
-        document.querySelector('#message').innerHTML = `Computer`;
-        setTimeout(function() {playComputer()}, 500);
+        player = player == 0 ? 1 : 0;
+        !twoPlayers ?  (document.querySelector('#message').innerHTML = `Computer`,
+        setTimeout(function() {playComputer()}, 500)) 
+        : document.querySelector('#message').innerHTML = `Player ${player == 0 ? '1' : '2'}`;
+
 }
 
 //---------------------------------------------------------------------------------------------
