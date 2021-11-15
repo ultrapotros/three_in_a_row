@@ -32,8 +32,6 @@ function players(id) {
     }
 }
 
-/*     twoPlayers ? (document.getElementById('level').classList.add('non_visible'), document.body.classList.remove('infernalBody')) 
-    : (document.getElementById('level').classList.remove('non_visible'));  */
 
 //----------------------------------------------------------------------
 
@@ -100,8 +98,7 @@ function clickControl(a,b,c,id) {    //a, b y c son las posibles lineas, para c 
             return
         }
         player = player == 0 ? 1 : 0;
-        !twoPlayers ?  (document.querySelector('#message').innerHTML = `Computer`,
-        setTimeout(function() {playComputer()}, 500)) 
+        !twoPlayers ?  (document.querySelector('#message').innerHTML = `Computer`,setTimeout(function() {playComputer()}, 500)) 
         : document.querySelector('#message').innerHTML = `Player ${player == 0 ? '1' : '2'}`;
 
 }
@@ -160,7 +157,7 @@ function playComputer() {
         if (!wrote) {
             
             for (let i =0; i < arrayPlayer.length-1; i++) {//en este for buscamos evitar la linea del jugador
-                for (let j=0; j < arrayPlayer.length; j++) {
+                for (let j in arrayPlayer) {
                     if (i != j) {
                         let n = map.indexOf(15-(arrayPlayer[i]+arrayPlayer[j]));
                         if (mapClicked[n] && !wrote) {
@@ -172,11 +169,11 @@ function playComputer() {
                 }   
             }            
         }
-        if (!wrote && levelImposible == true) {
+        if (!wrote && levelImposible == true) { //este if solo entra en modo demencial
             let firstLine = 9;
             let secondLine = 9;
-            for (let i = 0; i < 8; i++) {//intentar que repase el arrayCounter y si en alguna linea ya hemos sumado y quedan
-                if ((arrayCounter[i][1] == 1) && (arrayCounter[i][0] == 0)) {//las otras dos opciones libres cojer una
+            for (let i = 0; i < 8; i++) {
+                if ((arrayCounter[i][1] == 1) && (arrayCounter[i][0] == 0)) {
                     firstLine = i;
                     for (let j =(i + 1); j < 8;j++) {
                         if ((arrayCounter[j][1] == 1) && (arrayCounter[j][0] == 0)) {

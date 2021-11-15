@@ -39,7 +39,12 @@ p {
     font-size: 1.6rem;
 }
 .players {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+    margin: auto;
     margin-bottom: 1rem;
+    width: min-content;
 }
 button {
     background: #fcf299; 
@@ -97,6 +102,7 @@ header button:hover {
     margin: auto;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 #level p {
     font-size: 2rem;
