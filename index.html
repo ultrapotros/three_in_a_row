@@ -7,45 +7,77 @@
     <script type="text/javascript" src="js/js.js"></script>
     <link type="text/css" rel="stylesheet" href="css/normalize.css">
     <link type="text/css" rel="stylesheet" href="css/styles.css">
- <!--    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon_santi.png"> -->
+    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
 	<meta name="description" content="Juego de Tres en Raya">
   </head>
   <body>
     <header class="header">
         <h1>tres en raya</h1>
-        <p class="info">Para comenzar el juego pulsa el botón INICIO</p>
+        <div class="players">
+            <button type="button" id="false" class="active" onclick="players(false)">1 jugador</button>
+            <button type="button" id="true" onclick="players(true)">2 jugadores</button>
+        </div>
         <button class="start" type="button" onclick="start()">INICIO</button>
         <div id="message"></div>
     </header>
-	  <main class="mainContainer">
-          <div class="cell">
-              <input disabled class="inputCells" id="0" onclick="clickControl(0,3,6,0)">;
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="1" onclick="clickControl(0,4,8,1)">;
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="2" onclick="clickControl(0,5,7,2)">
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="3" onclick="clickControl(1,3,8,3)">
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="4" onclick="clickControl(1,4,9,4)">
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="5" onclick="clickControl(1,5,8,5)">  
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="6" onclick="clickControl(2,3,7,6)">  
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="7" onclick="clickControl(2,4,8,7)">
-          </div>
-          <div class="cell">
-              <input disabled class="inputCells" id="8" onclick="clickControl(2,5,6,8)">
-          </div>
-      </main>
+        <main class="mainContainer">
+            <div class="cell">
+                <input disabled class="inputCells" id="0" onclick="clickControl(0,3,6,0)">;
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="1" onclick="clickControl(0,4,8,1)">;
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="2" onclick="clickControl(0,5,7,2)">
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="3" onclick="clickControl(1,3,8,3)">
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="4" onclick="clickControl(1,4,9,4)">
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="5" onclick="clickControl(1,5,8,5)">  
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="6" onclick="clickControl(2,3,7,6)">  
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="7" onclick="clickControl(2,4,8,7)">
+            </div>
+            <div class="cell">
+                <input disabled class="inputCells" id="8" onclick="clickControl(2,5,6,8)">
+            </div>
+        </main>
+
+        <div class="instructions">
+            <p><a href="#popup">Instrucciones</a></p>
+            <div id="popup" class="overlay">
+                <div id="popupBody">
+                    <h2>Instrucciones</h2>
+                    <a id="cerrar" href="#">x</a>
+                    <div class="popupContent">
+                        <p>Gracias por visitar nuestra página.</p>
+                        <p>Este es el conocido tres en raya, lo único que tienes que hacer es intentar formar una linea de tres.</p>
+                        <p>Puedes jugar contra la máquina o jugar con un compañero.</p>
+                        <p>Si juegas contra la máquina puedes elegir el nivel, en caso de no elegirlo jugarás al nivel difícil. 
+                            Si te atreves puedes elegir el modo demencial.
+                        </p>
+                        <p>En el caso de jugar contra otro jugador, os alternaréis a la hora de elegir casilla.</p>
+                        <p>Para comenzar a jugar haz click en INICIO.</p>
+                        <p>¡Suerte!!</p>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        <div id="level">
+            <button id="hard" class ="active" onclick="level(false)">&nbspdifícil&nbsp</button>
+            <p>elige un nivel</p>
+            <button id="imposible" onmouseover="showGif()" onmouseout="hideGif()" onclick="level(true)">demencial</button>
+        </div>
+        <div id="gif" class="non_visible">
+            <img src="media/risas.gif" alt="gif risas">
+        </div>
     <footer class="footer">
     </footer>
   </body>
